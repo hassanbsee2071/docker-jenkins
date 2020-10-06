@@ -24,7 +24,10 @@ pipeline {
                 label {label 'master'}
             }
             steps {
-                sh 'docker run -p 5000:5000 python_app:$BUILD_NUMBER'
+                sh 'docker kill python-server'
+                sh 'docker rm python-server'
+
+                sh 'docker run -dit --name python-server -p 5000:5000 python_app:$BUILD_NUMBER'
                 sh 'echo "Build Number Is  $BUILD_NUMBER."'
             }
         }
