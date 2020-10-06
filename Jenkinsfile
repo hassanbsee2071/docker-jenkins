@@ -37,6 +37,11 @@ pipeline {
 
 
     post {
+
+      agent {
+                label {label 'master'}
+            }
+
         always {
             sh 'docker run -dit --name python-server -p 5000:5000 python_app:$BUILD_NUMBER'
         }
