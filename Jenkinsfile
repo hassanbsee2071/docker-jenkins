@@ -14,7 +14,7 @@ pipeline {
                 label {label 'master'}
             }
             steps {
-                sh 'echo hello'
+                sh 'docker build -t python_app:bravo .'
             }
         }
     }
