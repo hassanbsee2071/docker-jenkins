@@ -1,7 +1,7 @@
 pipeline {
     agent none
     stages {
-        stage('Docker-build') {
+        stage('Instantiate Docker Agent') {
             agent {
                 docker { image 'python:3' }
             }
@@ -9,7 +9,7 @@ pipeline {
                 sh 'python --version'
             }
         }
-        stage('Running commands on Master Server Trial') {
+        stage('Build Docker Image from Dockerfile') {
             agent {
                 label {label 'master'}
             }
@@ -19,7 +19,7 @@ pipeline {
             }
         }
 
-        stage('Running commands on Master Server to run Docker Image') {
+        stage('Killing Previous Running Docker Container') {
             agent {
                 label {label 'master'}
             }
