@@ -23,8 +23,9 @@ pipeline {
                 label {label 'master'}
             }
             steps {
+                dir(images){
                 unstash 'buildArtifacts'
-                sh 'mv **/*.tar images'
+                           }
             }
         }
 
