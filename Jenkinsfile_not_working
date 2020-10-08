@@ -12,7 +12,7 @@ pipeline {
                     sh 'docker save -o python_app_$BUILD_NUMBER.tar python_app:$BUILD_NUMBER'
                     fingerprint 'python_app_$BUILD_NUMBER.tar'
                     archiveArtifacts '**/*.tar'
-                    stash allowEmpty: true, includes: '**/*.tar', name: 'buildArtifacts'
+                    stash allowEmpty: true, includes: 'python_app_$BUILD_NUMBER.tar', name: 'buildArtifacts'
 
                   }
 
@@ -24,7 +24,7 @@ pipeline {
             }
             steps {
                 unstash 'buildArtifacts'
-                sh 'mv python_app_25.tar images '
+                sh 'mv *.tar images '
             }
         }
 
