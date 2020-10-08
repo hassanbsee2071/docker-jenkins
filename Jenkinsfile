@@ -11,7 +11,7 @@ pipeline {
                     sh 'echo "Build Number Is  $BUILD_NUMBER."'
                     sh 'docker save -o python_app_$BUILD_NUMBER.tar python_app:$BUILD_NUMBER'
                     fingerprint 'python_app_$BUILD_NUMBER.tar'
-                    archiveArtifacts 'python_app_$BUILD_NUMBER.tar'
+                    archiveArtifacts '**/*.tar'
                     stash allowEmpty: true, includes: 'python_app_$BUILD_NUMBER.tar', name: 'buildArtifacts'
 
                   }
