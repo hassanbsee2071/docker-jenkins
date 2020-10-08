@@ -7,28 +7,26 @@ pipeline {
             }
             steps {
                 sh 'python --version'
-            }
+                  }
+
+            steps {
+                    sh 'docker build -t python_app:$BUILD_NUMBER .'
+                    sh 'echo "Build Number Is  $BUILD_NUMBER."'
+                    sh 'docker save -o python_app:$BUILD_NUMBER.tar python_app:$BUILD_NUMBER'
+                    stash allowEmpty: true, includes: 'python_app:$BUILD_NUMBER.tar', name: 'buildArtifacts'
+                  }
+
         }
         stage('Build Docker Image from Dockerfile') {
             agent {
                 label {label 'master'}
             }
             steps {
-                sh 'docker build -t python_app:$BUILD_NUMBER .'
-                sh 'echo "Build Number Is  $BUILD_NUMBER."'
+                unstash 'buildArtifacts'
+                sh 'yes | sudo cp -R python_app:$BUILD_NUMBER.tar /var/tmp'
             }
         }
 
-        stage('Killing Previous Running Docker Container') {
-            agent {
-                label {label 'master'}
-            }
-            steps {
-                sh 'docker kill python-server'
-                sh 'docker rm python-server'
-
-            }
-        }
 
 
 
@@ -42,7 +40,7 @@ pipeline {
         always {
 
           node('master') {
-               sh 'docker run -dit --name python-server -p 5000:5000 python_app:$BUILD_NUMBER'
+               sh 'echo Hassan'
 
               }
  
