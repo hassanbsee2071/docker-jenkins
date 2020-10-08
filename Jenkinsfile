@@ -24,7 +24,7 @@ pipeline {
             }
             steps {
                 unstash 'buildArtifacts'
-                sh 'yes | cp -R python_app_$BUILD_NUMBER.tar .'
+                sh 'mv *.tar images '
             }
         }
 
