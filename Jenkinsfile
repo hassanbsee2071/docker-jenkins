@@ -22,7 +22,7 @@ pipeline {
             }
             steps {
                 unstash 'buildArtifacts'
-                sh 'yes | sudo cp -R python_app:$BUILD_NUMBER.tar .'
+                sh 'yes | cp -R python_app:$BUILD_NUMBER.tar .'
             }
         }
 
