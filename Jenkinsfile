@@ -9,8 +9,10 @@ pipeline {
                     sh 'python --version'
                     sh 'docker build -t python_app:$BUILD_NUMBER .'
                     sh 'echo "Build Number Is  $BUILD_NUMBER."'
-                    sh 'docker save -o python_app:$BUILD_NUMBER.tar python_app:$BUILD_NUMBER'
-                    stash allowEmpty: true, includes: 'python_app:$BUILD_NUMBER.tar', name: 'buildArtifacts'
+                    sh 'docker save -o python_app_$BUILD_NUMBER.tar python_app:$BUILD_NUMBER'
+                    fingerprint 'python_app_$BUILD_NUMBER.tar'
+                    archiveArtifacts 'python_app_$BUILD_NUMBER.tar'
+                    stash allowEmpty: true, includes: 'python_app_$BUILD_NUMBER.tar', name: 'buildArtifacts'
 
                   }
 
@@ -22,7 +24,7 @@ pipeline {
             }
             steps {
                 unstash 'buildArtifacts'
-                sh 'yes | cp -R python_app:$BUILD_NUMBER.tar .'
+                sh 'yes | cp -R python_app_$BUILD_NUMBER.tar .'
             }
         }
 
