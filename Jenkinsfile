@@ -24,7 +24,7 @@ pipeline {
             }
             steps {
                 unstash 'buildArtifacts'
-                sh 'mv python_app_25.tar images '
+                sh 'mv **/*.tar images'
             }
         }
 
