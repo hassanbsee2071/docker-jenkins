@@ -25,7 +25,7 @@ pipeline {
             steps {
                 unstash 'buildArtifacts'
                 sh 'pwd'
-                sh 'mv python_app* /var/jenkins_home/workspace/working python pipeline/images'
+                sh 'mv python_app* /var/jenkins_home/workspace/working_python_pipeline/images'
             }
         }
 
