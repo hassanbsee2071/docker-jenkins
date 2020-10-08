@@ -24,7 +24,8 @@ pipeline {
             }
             steps {
                 unstash 'buildArtifacts'
-                sh 'mv python_app* images/ '
+                sh 'pwd'
+                sh 'mv python_app* images'
             }
         }
 
